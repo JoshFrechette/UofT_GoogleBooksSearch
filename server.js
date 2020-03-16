@@ -18,11 +18,13 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooks");
 
-var apiRoutes =  require("./routes/api-routes")(app)
+var apiRoutes =  require("./routes/api-routes")(app);
 
 //Catchall to redirect routes on deploy
 app.use(express.static(path.join(__dirname, 'client/build')));
-app.get('/', (req, res) => {
+
+
+app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/public' , 'index.html'));
   });
 
