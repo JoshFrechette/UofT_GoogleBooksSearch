@@ -21,6 +21,11 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooks");
 
 var apiRoutes =  require("./routes/api-routes")(app)
 
+//Catchall to redirect routes on deploy
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));
+  });
+
 app.listen(PORT, function() {
     console.log("Server listening on: http://localhost:" + PORT);
   });
